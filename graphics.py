@@ -1,9 +1,20 @@
 from tkinter import Tk, BOTH, Canvas
 
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+class Line:
+    def __init__(self, point1=Point(), point2=Point()):
+        self.point1 = point1
+        self.point2 = point2
+    
+    def draw(self, canvas, fill_color="black"):
+        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=2)
+
 class Window:
     def __init__(self, width, height):
-        self.__width = width
-        self.__height = height
         self.__root = Tk()
         self.__root.title("Maze Solver")
         self.__canvas = Canvas(self.__root, bg="white", height=height, width=width)
@@ -24,7 +35,5 @@ class Window:
     def close(self):
         self.__running = False
 
-class Point:
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
+    def draw_line(self, fill_color, line=Line()):
+        line.draw(self.__canvas, fill_color)
