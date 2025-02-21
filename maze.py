@@ -25,5 +25,7 @@ class Maze:
         self._animate()
 
     def _create_cells(self):
-        self._cells = [Cell(self._win) for _ in range(self._num_cols)]
-        self._draw_cell()
+        self._cells = [[Cell(self._win) for _ in range(self._num_cols)] for _ in range(self._num_rows)]
+        for i in range(self._num_cols):
+            for j in range(self._num_rows):
+                self._draw_cell(i, j)
