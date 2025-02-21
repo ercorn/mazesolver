@@ -13,6 +13,7 @@ class Maze:
         self._cells = []
 
         self._create_cells()
+        self._break_entrance_and_exit()
 
     def _animate(self):
         self._win.redraw()
