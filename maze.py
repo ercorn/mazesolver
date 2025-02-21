@@ -19,6 +19,7 @@ class Maze:
         self._create_cells()
         self._break_entrance_and_exit()
         self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def _animate(self):
         self._win.redraw()
@@ -89,3 +90,8 @@ class Maze:
 
             #Move to the chosen cell by recursively calling _break_walls_r
             self._break_walls_r(next_dir_idx[0], next_dir_idx[1])
+
+    def _reset_cells_visited(self):
+        for i in range(self._num_cols):
+            for j in range(self._num_rows):
+                self._cells[i][j].visited = False
