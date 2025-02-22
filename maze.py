@@ -95,3 +95,22 @@ class Maze:
         for i in range(self._num_cols):
             for j in range(self._num_rows):
                 self._cells[i][j].visited = False
+
+    def solve(self):
+        return self._solve_r(0, 0)
+
+    def _solve_r(self, i, j):
+        self._animate()
+        self._cells[i][j].visited = True
+        if i == self._num_cols - 1 and j == self._num_rows - 1:
+            return True
+        
+        curr_cell = self._cells[i][j]
+        #left
+        to_cell = self._cells[i - 1][j]
+        if i - 1 > 0 and not curr_cell.has_left_wall and not to_cell.visited:
+            curr_cell.draw_move(to_cell)
+            if self._solve_r(i - 1, j):
+                return True
+            else:
+                curr_cell.draw_move(to_cell, undo=True)
