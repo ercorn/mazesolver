@@ -1,6 +1,7 @@
 from graphics import Window, Point, Line
 from cell import Cell
 from maze import Maze
+import sys
 
 def main():
     #win = Window(800, 600)
@@ -24,7 +25,15 @@ def main():
     cell_size_y = (screen_y - 2 * margin) / num_rows
     win = Window(screen_x, screen_y)
 
+    sys.setrecursionlimit(10000)
+
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 10)
+    print("maze created!")
+    is_solvable = maze.solve()
+    if not is_solvable:
+        print("maze is unsolvable!")
+    else:
+        print("maze solved!")
 
     win.wait_for_close()
 

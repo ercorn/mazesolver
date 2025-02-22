@@ -107,10 +107,40 @@ class Maze:
         
         curr_cell = self._cells[i][j]
         #left
-        to_cell = self._cells[i - 1][j]
-        if i - 1 > 0 and not curr_cell.has_left_wall and not to_cell.visited:
+        
+        if i > 0 and not curr_cell.has_left_wall and not self._cells[i - 1][j].visited:
+            to_cell = self._cells[i - 1][j]
             curr_cell.draw_move(to_cell)
             if self._solve_r(i - 1, j):
                 return True
             else:
                 curr_cell.draw_move(to_cell, undo=True)
+        #right
+        
+        if i < self._num_cols - 1  and not curr_cell.has_right_wall and not self._cells[i + 1][j].visited:
+            to_cell = self._cells[i + 1][j]
+            curr_cell.draw_move(to_cell)
+            if self._solve_r(i + 1, j):
+                return True
+            else:
+                curr_cell.draw_move(to_cell, undo=True)
+        #up
+        
+        if j > 0 and not curr_cell.has_top_wall and not self._cells[i][j - 1].visited:
+            to_cell = self._cells[i][j - 1]
+            curr_cell.draw_move(to_cell)
+            if self._solve_r(i, j - 1):
+                return True
+            else:
+                curr_cell.draw_move(to_cell, undo=True)
+        #down
+        
+        if j < self._num_rows - 1 and not curr_cell.has_bottom_wall and not self._cells[i][j + 1].visited:
+            to_cell = self._cells[i][j + 1]
+            curr_cell.draw_move(to_cell)
+            if self._solve_r(i, j + 1):
+                return True
+            else:
+                curr_cell.draw_move(to_cell, undo=True)
+        #if none of the directions worked out
+        return False
